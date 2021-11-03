@@ -1,4 +1,9 @@
 const router = require('express').Router()
+const {
+  checkAccountPayload,
+  checkAccountNameUnique,
+  checkAccountId,
+ } = require('./accounts-middleware')
 
 router.get('/', (req, res, next) => {
   try {
@@ -8,7 +13,7 @@ res.json('get all')
   }
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', checkAccountId, (req, res, next) => {
   try {
     res.json('get by id')
   } catch (error) {
@@ -16,7 +21,10 @@ router.get('/:id', (req, res, next) => {
   }
 })
 
-router.post('/', (req, res, next) => {
+router.post('/',
+  checkAccountPayload,
+  checkAccountNameUnique,
+  (req, res, next) => {
   try {
     res.json('post')
   } catch (error) {
@@ -24,7 +32,11 @@ router.post('/', (req, res, next) => {
   }
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id',
+  checkAccountId,
+  checkAccountPayload,
+  checkAccountNameUnique,
+  (req, res, next) => {
   try {
     res.json('put')
 
@@ -33,7 +45,7 @@ router.put('/:id', (req, res, next) => {
   }
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id',checkAccountId, (req, res, next) => {
   try {
     res.json('delete')
   } catch (error) {
