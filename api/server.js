@@ -1,13 +1,15 @@
 const express = require("express");
 const server = express();
 
-const accountsRouter = require('./accounts/accounts-router');
+ const accountsRouter = require('./accounts/accounts-router');
 
 server.use(express.json());
 server.use('/api/accounts', accountsRouter);
 
-server.get('/', (req, res) => {
-    res.send('Node DB1 Project')
-});
+server.use('*', (req, res) => {
+    res.status(404).json({
+        message: 'not found',
+    })
+})
 
 module.exports = server;
