@@ -24,7 +24,8 @@ router.post('/',
   checkAccountNameUnique,
   async (req, res, next) => {
     try {
-      res.json('post')
+      const newAccount = await Account.create(req.body)
+      res.status(201).json(newAccount)
     } catch (error) {
       next(error)
     }
