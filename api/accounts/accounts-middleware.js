@@ -3,7 +3,6 @@ const Account = require('./accounts-model')
 exports.checkAccountPayload = (req, res, next) => {
   const error = { status: 400 }
   const { name, budget } = req.body
-  console.log(typeof budget)
   if (name === undefined || budget === undefined) {
     error.message = 'name and budget are required'
   } else if (typeof name !== 'string') {
@@ -46,7 +45,7 @@ exports.checkAccountId = async (req, res, next) => {
     if (!account) {
       next({
         status: 404,
-        message: 'not found'
+        message: 'account not found'
       })
     } else {
       req.account = account
